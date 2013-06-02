@@ -46,6 +46,7 @@ BOARD_USES_FLUENCE_INCALL := true  # use DMIC in call only
 BOARD_USES_SEPERATED_AUDIO_INPUT := true  # use distinct voice recog/camcorder use cases
 BOARD_USES_SEPERATED_VOICE_SPEAKER := true  # use distinct voice speaker use case
 TARGET_USES_QCOM_COMPRESSED_AUDIO := true
+BOARD_HAVE_HTC_CSDCLIENT := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH_BCM := true
@@ -93,6 +94,11 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 27917287424
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 # Custom Recovery
+ifneq ($(filter m7att m7tmo m7ul,$(TARGET_DEVICE)),)
+TARGET_RECOVERY_FSTAB := device/htc/m7-common/recovery/recovery.fstab.gsm
+else
+TARGET_RECOVERY_FSTAB := device/htc/m7-common/recovery/recovery.fstab.cdma
+endif
 BOARD_CUSTOM_GRAPHICS := ../../../device/htc/m7-common/recovery/graphics.c
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 BOARD_HAS_NO_SELECT_BUTTON := true

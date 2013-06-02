@@ -202,7 +202,7 @@ on fs
     mkdir /firmware/mdm 0771 system system
     mkdir /firmware/q6 0771 system system
 
-    mount_all ./fstab.target
+    mount_all ./fstab.qcom
 
     insmod /system/lib/modules/dm-crypt.ko
 
@@ -230,7 +230,7 @@ on fs
     exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/mdm/image /vendor/firmware "*.mbn *.img"
     exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/q6 /vendor/firmware "q6.*"
 
-    mount_all ./remount.target
+    mount_all ./remount.qcom
 
 on post-fs-data
     mkdir /data/radio 0770 radio radio
@@ -259,6 +259,9 @@ on post-fs-data
     setprop vold.post_fs_data_done 1
 
 on boot
+    # mount debugfs for systrace
+    mount debugfs /sys/kernel/debug /sys/kernel/debug
+
     # We will remap this as /mnt/sdcard with the sdcard fuse tool
     mkdir /data/media 0775 media_rw media_rw
     chown media_rw media_rw /data/media
