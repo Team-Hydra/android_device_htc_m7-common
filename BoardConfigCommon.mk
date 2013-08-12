@@ -65,6 +65,9 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun%d/
 # We have the new GPS driver
 BOARD_HAVE_NEW_QC_GPS := true
 
+# Tuning
+BOARD_HARDWARE_CLASS := device/htc/m7-common/cmhw
+
 # Wifi
 BOARD_WLAN_DEVICE                := bcmdhd
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
@@ -91,38 +94,39 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 
 # SElinux
 BOARD_SEPOLICY_DIRS := \
-	device/htc/m7-common/sepolicy
+    device/htc/m7-common/sepolicy
 
 BOARD_SEPOLICY_UNION := \
-	file_contexts \
-	property_contexts \
-	te_macros \
-	bluetooth_loader.te \
-	bridge.te \
-	camera.te \
-	conn_init.te \
-	device.te \
-	dhcp.te \
-	domain.te \
-	drmserver.te \
-	file.te \
-	kickstart.te \
-	init.te \
-	mediaserver.te \
-	mpdecision.te \
-	netmgrd.te \
-	property.te \
-	qmux.te \
-	restorecon.te \
-	rild.te \
-	rmt.te \
-	sensors.te \
-	surfaceflinger.te \
-	system.te \
-	tee.te \
-	thermald.te \
-	ueventd.te \
-	wpa_supplicant.te
+    file_contexts \
+    property_contexts \
+    te_macros \
+    bluetooth_loader.te \
+    bridge.te \
+    camera.te \
+    conn_init.te \
+    device.te \
+    dhcp.te \
+    domain.te \
+    drmserver.te \
+    file.te \
+    kickstart.te \
+    init.te \
+    mediaserver.te \
+    mpdecision.te \
+    netmgrd.te \
+    property.te \
+    qmux.te \
+    restorecon.te \
+    rild.te \
+    rmt.te \
+    sensors.te \
+    surfaceflinger.te \
+    system.te \
+    tee.te \
+    thermald.te \
+    ueventd.te \
+    wpa_supplicant.te \
+    zygote.te
 
 # Custom Recovery
 ifneq ($(filter m7att m7tmo m7ul,$(TARGET_DEVICE)),)
