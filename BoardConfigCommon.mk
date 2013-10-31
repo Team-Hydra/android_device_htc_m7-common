@@ -27,8 +27,6 @@
 # inherit from common msm8960
 -include device/htc/msm8960-common/BoardConfigCommon.mk
 
-TARGET_ADDITIONAL_BOOTCLASSPATH := htcirlibs
-
 TARGET_SPECIFIC_HEADER_PATH := device/htc/m7-common/include
 
 # Kernel
