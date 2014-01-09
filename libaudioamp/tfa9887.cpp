@@ -860,11 +860,6 @@ int tfa9887_set_mode(audio_mode_t mode) {
     Tfa9887_Mode_t dsp_mode;
 
     dsp_mode = tfa9887_get_mode(mode);
-    if (tfa9887_initialized && tfa9887l_initialized &&
-            dsp_mode == tfa9887_mode) {
-        ALOGI("No mode change needed, already mode %d", dsp_mode);
-        return 0;
-    }
 
     /* Open the amplifier devices */
     if ((tfa9887_fd = open(TFA9887_DEVICE, O_RDWR)) < 0) {
@@ -888,6 +883,12 @@ int tfa9887_set_mode(audio_mode_t mode) {
         goto set_mode_unlock;
     }
 
+    if (tfa9887_initialized && tfa9887l_initialized &&
+            dsp_mode == tfa9887_mode) {
+        ALOGI("No mode change needed, already mode %d", dsp_mode);
+        goto set_mode_unlock;
+    }
+
     /* Mute to avoid pop */
     ret = tfa9887_mute(tfa9887_fd, Tfa9887_Mute_Digital);
     ret = tfa9887_mute(tfa9887l_fd, Tfa9887_Mute_Digital);
@@ -901,7 +902,7 @@ int tfa9887_set_mode(audio_mode_t mode) {
         }
     }
     if (!tfa9887l_initialized) {
-        ret = tfa9887_init(tfa9887l_fd, TFA9887_DEFAULT_RATE, true);
+        ret = tfa9887_init(tfa9887l_fd, TFA9887_DEFAULT_RATE, false);
         if (ret != 0) {
             ALOGE("Failed to initialize tfa9887L, DSP not enabled");
             goto set_mode_unmute;
